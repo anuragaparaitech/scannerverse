@@ -1,8 +1,8 @@
-# Scannerverse 📍
+# Scanverse 📍
 
-> Smart, lightweight neighborhood directory & local guide for Wakad, Pune.
+> **Unlock the universe right where you stand.**
 
-Scannerverse helps residents, commuters, and visitors in Wakad quickly find verified hospitals, transport links, food spots, shopping, and emergency services with live Google Maps integration.
+Scanverse is a smart, lightweight neighborhood directory & local discovery guide for Wakad, Pune. It helps residents, commuters, and visitors quickly find verified hospitals, transit links, food spots, shopping, and emergency services with live Google Maps integration.
 
 ---
 

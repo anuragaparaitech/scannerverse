@@ -2,7 +2,8 @@
 // Maintained for Wakad, Pune & surrounding areas
 
 const APP_CONFIG = {
-  appName: "Scannerverse",
+  appName: "Scanverse",
+  slogan: "Unlock the universe right where you stand.",
   city: "Wakad, Pune 411057",
   defaultCoordinates: {
     lat: 18.5987,
@@ -17,11 +18,9 @@ const APP_CONFIG = {
 const I18N = {
   en: {
     heroTitle: "Welcome to Wakad, Pune",
-    heroSubtitle: "Your smart neighborhood directory. Scan QR, discover essentials, and navigate the city easily.",
+    heroSubtitle: "Your smart neighborhood directory. Unlock the universe right where you stand.",
     searchPlaceholder: "Search hospitals, food, chowks, metro, hotels...",
     sosButton: "EMERGENCY 112",
-    scanQrBtn: "Scan QR",
-    generateQrBtn: "Make QR",
     nearMe: "Near Me",
     allCategories: "Explore Categories",
     quickAccess: "Quick Access",
@@ -31,24 +30,8 @@ const I18N = {
     backToList: "Back to Home",
     noResults: "No places found matching your search. Try another keyword or browse categories.",
     liveSearchTitle: "Live search on Google Maps",
-    scannerTitle: "QR Code Scanner",
-    scannerSubtitle: "Scan any QR code using your device camera or upload an image file.",
-    scanCameraTab: "Live Camera",
-    scanFileTab: "Upload Image",
-    startCamera: "Start Camera",
-    stopCamera: "Stop Camera",
-    dropImageText: "Click or drop a QR code image here",
-    scannedResult: "Scanned Result",
-    openLink: "Open Link",
-    copyText: "Copy Content",
-    copiedToast: "Copied to clipboard!",
-    generatorTitle: "QR Code Generator",
-    generatorSubtitle: "Generate a QR code for any local place, website URL, or contact info.",
-    inputQrData: "Enter link or text:",
-    generateBtn: "Generate QR",
-    downloadQrBtn: "Download QR",
     verifiedPlace: "Verified Local Spot",
-    footerMadeBy: "Scannerverse • Smart Local Directory & Scanner for Pune",
+    footerMadeBy: "Scanverse • Smart Local Directory for Wakad & Hinjewadi",
     emergencyNote: "For immediate police, fire, or medical emergencies in Maharashtra, call 112 directly."
   },
   mr: {
@@ -84,16 +67,14 @@ const I18N = {
     generateBtn: "QR बनवा",
     downloadQrBtn: "डाउनलोड करा",
     verifiedPlace: "सत्यापित स्थानिक ठिकाण",
-    footerMadeBy: "स्कॅनरव्हर्स • पुणेकरांसाठी स्मार्ट स्थानिक डिरेक्टरी व स्कॅनर",
+    footerMadeBy: "स्कॅनव्हर्स • पुणेकरांसाठी स्मार्ट स्थानिक डिरेक्टरी",
     emergencyNote: "कोणत्याही आणीबाणीच्या वेळी त्वरित 112 क्रमांकावर संपर्क साधा."
   },
   hi: {
     heroTitle: "वाकड, पुणे में आपका स्वागत है",
-    heroSubtitle: "आपका स्मार्ट स्थानीय गाइड। QR स्कैन करें, जरूरी स्थान ढूंढें और आसानी से घूमें।",
+    heroSubtitle: "आपका स्मार्ट स्थानीय गाइड। Unlock the universe right where you stand.",
     searchPlaceholder: "अस्पताल, भोजन, चौक, मेट्रो, होटल खोजें...",
     sosButton: "आपातकाल 112",
-    scanQrBtn: "QR स्कैन",
-    generateQrBtn: "QR बनाएँ",
     nearMe: "आस-पास",
     allCategories: "सभी श्रेणियां",
     quickAccess: "त्वरित पहुँच",
@@ -103,24 +84,8 @@ const I18N = {
     backToList: "मुख्य पेज पर जाएँ",
     noResults: "कोई परिणाम नहीं मिला। कृपया दूसरा शब्द लिखकर खोजें।",
     liveSearchTitle: "Google Maps पर लाइव खोजें",
-    scannerTitle: "QR कोड स्कैनर",
-    scannerSubtitle: "अपने कैमरे या फोटो अपलोड करके किसी भी QR कोड को स्कैन करें।",
-    scanCameraTab: "लाइव कैमरा",
-    scanFileTab: "फोटो चुनें",
-    startCamera: "कैमरा शुरू करें",
-    stopCamera: "कैमरा बंद करें",
-    dropImageText: "यहाँ QR कोड फोटो डालें या चुनें",
-    scannedResult: "स्कैन परिणाम",
-    openLink: "लिंक खोलें",
-    copyText: "कॉपी करें",
-    copiedToast: "कॉपी हो गया!",
-    generatorTitle: "QR कोड बनाएँ",
-    generatorSubtitle: "किसी भी जगह, वेबसाइट लिंक या संपर्क के लिए नया QR कोड बनाएँ।",
-    inputQrData: "लिंक या जानकारी दर्ज करें:",
-    generateBtn: "QR बनाएँ",
-    downloadQrBtn: "डाउनलोड करें",
     verifiedPlace: "सत्यापित स्थानीय स्थान",
-    footerMadeBy: "स्कैनरवर्स • स्मार्ट लोकल डायरेक्टरी एवं स्कैनर",
+    footerMadeBy: "स्कैनवर्स • स्मार्ट लोकल डायरेक्टरी",
     emergencyNote: "आपातकाल के समय तुरंत 112 नंबर डायल करें।"
   }
 };

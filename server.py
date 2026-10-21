@@ -24,7 +24,7 @@ def start_server():
         with socketserver.TCPServer((HOST, PORT), ScannerverseHandler) as httpd:
             url = f"http://localhost:{PORT}"
             print("\n" + "=" * 50)
-            print("  🌐 Scannerverse Local Server Running!")
+            print("  🌐 Scanverse — Unlock the universe right where you stand.")
             print(f"  👉 Open URL: {url}")
             print(f"  👉 Direct IP: http://{HOST}:{PORT}")
             print("  Press Ctrl+C to stop the server.")
