@@ -131,23 +131,19 @@ body {
   text-decoration: none;
 }
 
-.brand-logo-icon {
-  font-size: 1.45rem;
-  background: var(--primary-subtle);
+.brand-logo-img {
   width: 44px;
   height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-xs);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  flex-shrink: 0;
+  display: block;
 }
 
-.brand-wrapper:hover .brand-logo-icon {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-sm);
+.brand-wrapper:hover .brand-logo-img {
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
 .brand-text-group {
