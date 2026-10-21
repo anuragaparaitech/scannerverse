@@ -326,10 +326,10 @@ function renderPlaceCard(place) {
 
       <div class="place-actions">
         <a class="btn-action btn-map" href="${mapUrl}" target="_blank" rel="noopener noreferrer">
-          <span>🗺️</span> ${t("openMap")}
+          <span>📍</span> ${t("openMap")}
         </a>
         <a class="btn-action btn-directions" href="${dirUrl}" target="_blank" rel="noopener noreferrer">
-          <span>↗️</span> ${t("getDirections")}
+          <span>🧭</span> ${t("getDirections")}
         </a>
         ${phoneBtn}
       </div>
@@ -373,7 +373,7 @@ function renderLiveSearchCard(searchItem) {
     <a class="live-search-card" href="${url}" target="_blank" rel="noopener noreferrer">
       <span class="live-search-icon">📍</span>
       <span class="live-search-text">${escapeHtml(searchItem)}</span>
-      <span class="live-search-arrow">&rarr;</span>
+      <span class="live-search-arrow">📍 Maps ↗</span>
     </a>
   `;
 }
