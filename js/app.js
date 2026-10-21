@@ -1,5 +1,5 @@
 // Scannerverse - Main Application Logic
-// Handles navigation, language switching, search, and UI state
+// Lightweight, responsive neighborhood directory for Wakad, Pune
 
 let currentLang = "en";
 let activeCategoryId = null;
@@ -9,7 +9,7 @@ function t(key) {
   if (I18N[currentLang] && I18N[currentLang][key]) {
     return I18N[currentLang][key];
   }
-  return I18N.en[key] || "";
+  return (I18N.en && I18N.en[key]) || "";
 }
 
 // Helper to sanitize HTML display
@@ -58,11 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThemeToggleIcon(savedTheme);
   } catch (e) {}
 
-  // Initialize QR Engines
-  if (typeof initQrEngines === "function") {
-    initQrEngines();
-  }
-
   // Bind UI Events
   setupEventListeners();
 
@@ -78,7 +73,7 @@ function setupEventListeners() {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       const query = e.target.value.trim();
-      if (clearBtn) clearBtn.style.display = query ? "block" : "none";
+      if (clearBtn) clearBtn.style.display = query ? "flex" : "none";
       handleSearch(query);
     });
   }
@@ -115,9 +110,6 @@ function setupEventListeners() {
       resetToHome();
     });
   }
-
-  // Modals (QR Scanner & Generator)
-  setupModalHandlers();
 }
 
 function updateThemeToggleIcon(theme) {
@@ -142,10 +134,15 @@ function renderApp() {
   renderHeaderControls();
 
   // Update Hero Section
-  document.getElementById("heroTitle").textContent = t("heroTitle");
-  document.getElementById("heroSubtitle").textContent = t("heroSubtitle");
-  document.getElementById("mainSearchInput").placeholder = t("searchPlaceholder");
-  document.getElementById("sosButtonText").textContent = t("sosButton");
+  const heroTitle = document.getElementById("heroTitle");
+  const heroSubtitle = document.getElementById("heroSubtitle");
+  const searchInput = document.getElementById("mainSearchInput");
+  const sosButtonText = document.getElementById("sosButtonText");
+
+  if (heroTitle) heroTitle.textContent = t("heroTitle");
+  if (heroSubtitle) heroSubtitle.textContent = t("heroSubtitle");
+  if (searchInput) searchInput.placeholder = t("searchPlaceholder");
+  if (sosButtonText) sosButtonText.textContent = t("sosButton");
 
   // Render Quick Access chips
   renderQuickAccessChips();
@@ -180,9 +177,6 @@ function renderHeaderControls() {
         `<button type="button" class="lang-btn ${lang.code === currentLang ? "active" : ""}" onclick="setLanguage('${lang.code}')">${lang.label}</button>`
     )
     .join("");
-
-  const scanQrBtnText = document.getElementById("headerScanQrText");
-  if (scanQrBtnText) scanQrBtnText.textContent = t("scanQrBtn");
 }
 
 function renderQuickAccessChips() {
@@ -191,10 +185,10 @@ function renderQuickAccessChips() {
 
   const chips = [
     { id: "near", icon: "📍", label: t("nearMe"), onClick: "handleNearMe()" },
-    { id: "hospitals", icon: "🏥", label: CATEGORIES[0].title[currentLang], onClick: "openCategory('hospitals')" },
-    { id: "food", icon: "🍽️", label: CATEGORIES[1].title[currentLang], onClick: "openCategory('food')" },
-    { id: "transport", icon: "🚌", label: CATEGORIES[2].title[currentLang], onClick: "openCategory('transport')" },
-    { id: "shopping", icon: "🛍️", label: CATEGORIES[3].title[currentLang], onClick: "openCategory('shopping')" }
+    { id: "hospitals", icon: "🏥", label: CATEGORIES[0].title[currentLang] || CATEGORIES[0].title.en, onClick: "openCategory('hospitals')" },
+    { id: "food", icon: "🍽️", label: CATEGORIES[1].title[currentLang] || CATEGORIES[1].title.en, onClick: "openCategory('food')" },
+    { id: "transport", icon: "🚌", label: CATEGORIES[2].title[currentLang] || CATEGORIES[2].title.en, onClick: "openCategory('transport')" },
+    { id: "shopping", icon: "🛍️", label: CATEGORIES[3].title[currentLang] || CATEGORIES[3].title.en, onClick: "openCategory('shopping')" }
   ];
 
   container.innerHTML = chips
@@ -223,15 +217,18 @@ function renderCategoriesGrid() {
     const title = cat.title[currentLang] || cat.title.en;
     const desc = cat.desc ? (cat.desc[currentLang] || cat.desc.en) : "";
     const count = cat.places ? cat.places.length : 0;
-    const countLabel = count > 0 ? `${count} places` : "Quick actions";
+    const countLabel = count > 0 ? `${count} places` : "Quick directory";
 
     return `
       <div class="category-card" onclick="openCategory('${cat.id}')">
         <div class="cat-icon-wrap">${cat.icon}</div>
         <div class="cat-content">
-          <h3 class="cat-title">${escapeHtml(title)}</h3>
+          <div class="cat-title-row">
+            <h3 class="cat-title">${escapeHtml(title)}</h3>
+            <span class="cat-meta-badge">${countLabel}</span>
+          </div>
           <p class="cat-desc">${escapeHtml(desc)}</p>
-          <span class="cat-meta">${countLabel} &rarr;</span>
+          <span class="cat-link-label">Explore places &rarr;</span>
         </div>
       </div>
     `;
@@ -271,7 +268,7 @@ function openCategory(categoryId, scrollToTop = true) {
   if (category.liveSearches && category.liveSearches.length > 0) {
     html += `
       <div class="live-searches-section">
-        <h4 class="live-section-title">🔍 ${t("liveSearchTitle")}</h4>
+        <h4 class="live-section-title">📍 ${t("liveSearchTitle")}</h4>
         <div class="live-searches-grid">
           ${category.liveSearches.map((item) => renderLiveSearchCard(item)).join("")}
         </div>
@@ -426,6 +423,7 @@ function handleSearch(query) {
   if (matchedPlaces.length === 0 && matchedSearches.length === 0) {
     detailList.innerHTML = `
       <div class="empty-state">
+        <div class="empty-icon">🔍</div>
         <p class="empty-text">${t("noResults")}</p>
         <button type="button" class="btn-primary" onclick="resetToHome()">View All Categories</button>
       </div>
@@ -437,7 +435,7 @@ function handleSearch(query) {
   if (matchedSearches.length > 0) {
     html += `
       <div class="live-searches-section">
-        <h4 class="live-section-title">🔍 Live Google Maps queries</h4>
+        <h4 class="live-section-title">📍 Google Maps queries for "${escapeHtml(query)}"</h4>
         <div class="live-searches-grid">
           ${matchedSearches.map((s) => renderLiveSearchCard(s)).join("")}
         </div>
@@ -459,7 +457,7 @@ function resetToHome() {
 }
 
 function handleNearMe() {
-  showToast("Finding places around you...");
+  showToast("Finding places around you on Google Maps...");
 
   if (!navigator.geolocation) {
     openMapsFallback();
@@ -485,106 +483,4 @@ function openMapsFallback() {
   const { lat, lng } = APP_CONFIG.defaultCoordinates;
   const url = `https://www.google.com/maps/search/Hospitals,+Food,+ATMs/@${lat},${lng},15z`;
   window.open(url, "_blank", "noopener,noreferrer");
-}
-
-// Modal Controllers
-function setupModalHandlers() {
-  // Scanner Modal
-  const scannerModal = document.getElementById("scannerModal");
-  const openScannerBtn = document.getElementById("headerScanQrBtn");
-  const closeScannerBtn = document.getElementById("closeScannerModalBtn");
-
-  if (openScannerBtn && scannerModal) {
-    openScannerBtn.addEventListener("click", () => {
-      scannerModal.classList.add("open");
-      // switch to camera tab by default
-      switchScannerTab("camera");
-    });
-  }
-
-  if (closeScannerBtn && scannerModal) {
-    closeScannerBtn.addEventListener("click", () => {
-      scannerModal.classList.remove("open");
-      if (qrScannerInstance) qrScannerInstance.stopCamera();
-    });
-  }
-
-  // Generator Modal
-  const generatorModal = document.getElementById("generatorModal");
-  const openGenBtn = document.getElementById("headerMakeQrBtn");
-  const closeGenBtn = document.getElementById("closeGeneratorModalBtn");
-
-  if (openGenBtn && generatorModal) {
-    openGenBtn.addEventListener("click", () => {
-      generatorModal.classList.add("open");
-      // pre-fill with current site URL
-      const input = document.getElementById("qrInputText");
-      if (input && !input.value) {
-        input.value = window.location.href;
-        if (qrGeneratorInstance) qrGeneratorInstance.generate(window.location.href);
-      }
-    });
-  }
-
-  if (closeGenBtn && generatorModal) {
-    closeGenBtn.addEventListener("click", () => {
-      generatorModal.classList.remove("open");
-    });
-  }
-
-  // Camera start / stop buttons
-  const startCamBtn = document.getElementById("startCameraBtn");
-  const stopCamBtn = document.getElementById("stopCameraBtn");
-
-  if (startCamBtn) {
-    startCamBtn.addEventListener("click", () => {
-      if (qrScannerInstance) qrScannerInstance.startCamera();
-    });
-  }
-
-  if (stopCamBtn) {
-    stopCamBtn.addEventListener("click", () => {
-      if (qrScannerInstance) qrScannerInstance.stopCamera();
-    });
-  }
-
-  // Scanner tabs (Camera vs File)
-  const tabCamera = document.getElementById("tabScanCamera");
-  const tabFile = document.getElementById("tabScanFile");
-
-  if (tabCamera) tabCamera.addEventListener("click", () => switchScannerTab("camera"));
-  if (tabFile) tabFile.addEventListener("click", () => switchScannerTab("file"));
-
-  // Close modals on clicking backdrop
-  [scannerModal, generatorModal].forEach((modal) => {
-    if (modal) {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.remove("open");
-          if (qrScannerInstance) qrScannerInstance.stopCamera();
-        }
-      });
-    }
-  });
-}
-
-function switchScannerTab(tab) {
-  const tabCamera = document.getElementById("tabScanCamera");
-  const tabFile = document.getElementById("tabScanFile");
-  const bodyCamera = document.getElementById("scannerCameraBody");
-  const bodyFile = document.getElementById("scannerFileBody");
-
-  if (tab === "camera") {
-    tabCamera.classList.add("active");
-    tabFile.classList.remove("active");
-    bodyCamera.style.display = "block";
-    bodyFile.style.display = "none";
-    if (qrScannerInstance) qrScannerInstance.startCamera();
-  } else {
-    tabFile.classList.add("active");
-    tabCamera.classList.remove("active");
-    bodyFile.style.display = "block";
-    bodyCamera.style.display = "none";
-    if (qrScannerInstance) qrScannerInstance.stopCamera();
-  }
 }

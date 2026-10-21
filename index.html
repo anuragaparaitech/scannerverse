@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Scannerverse — Wakad Local Directory &amp; QR Guide</title>
-  <meta name="description" content="Scannerverse - Smart local directory and QR discovery guide for Wakad, Pune. Explore verified hospitals, transport, food, shopping, and emergency services.">
+  <title>Scannerverse — Wakad, Pune Local Guide &amp; Directory</title>
+  <meta name="description" content="Scannerverse - Clean, smart neighborhood guide for Wakad, Pune. Explore hospitals, food, shopping, metro & bus transport, and emergency services.">
   <meta name="theme-color" content="#2563eb">
   
   <!-- Main Stylesheet -->
@@ -15,32 +15,23 @@
   <div class="app-container">
     <!-- Header -->
     <header class="app-header">
-      <div class="brand-wrapper" onclick="resetToHome()">
-        <div class="brand-logo-icon">🌐</div>
-        <div>
-          <span class="brand-name">Scannerverse</span>
-          <span class="brand-badge">Wakad</span>
+      <div class="brand-wrapper" onclick="resetToHome()" role="button" tabindex="0">
+        <div class="brand-logo-icon">📍</div>
+        <div class="brand-text-group">
+          <div class="brand-title-row">
+            <span class="brand-name">Scannerverse</span>
+            <span class="brand-badge">Wakad</span>
+          </div>
+          <span class="brand-tagline">Smart Local Neighborhood Guide</span>
         </div>
       </div>
 
       <div class="header-actions">
         <!-- Language Switcher -->
-        <div class="lang-selector" id="langSelector"></div>
-
-        <!-- Scan QR Button -->
-        <button type="button" class="btn-icon-text" id="headerScanQrBtn">
-          <span class="chip-icon">📷</span>
-          <span id="headerScanQrText">Scan QR</span>
-        </button>
-
-        <!-- Make QR Button -->
-        <button type="button" class="btn-icon-text" id="headerMakeQrBtn" title="Create QR Code">
-          <span class="chip-icon">✨</span>
-          <span>Make QR</span>
-        </button>
+        <div class="lang-selector" id="langSelector" role="group" aria-label="Language selection"></div>
 
         <!-- Dark / Light Theme Toggle -->
-        <button type="button" class="btn-icon-only" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+        <button type="button" class="btn-theme-toggle" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
           <span id="themeToggleIcon">🌙</span>
         </button>
       </div>
@@ -50,36 +41,52 @@
     <main>
       <!-- Hero Section -->
       <section class="hero-section">
-        <h1 class="hero-title" id="heroTitle">Welcome to Wakad, Pune</h1>
-        <p class="hero-subtitle" id="heroSubtitle">Your smart neighborhood directory. Scan QR, discover essentials, and navigate easily.</p>
+        <div class="hero-content">
+          <h1 class="hero-title" id="heroTitle">Welcome to Wakad, Pune</h1>
+          <p class="hero-subtitle" id="heroSubtitle">Explore verified emergency contacts, top food spots, transit hubs, and local essentials with live Google Maps navigation.</p>
+        </div>
 
-        <!-- Direct Emergency Call Button -->
-        <a class="sos-banner-btn" href="tel:112">
-          <span>🚨</span>
-          <span id="sosButtonText">EMERGENCY 112</span>
+        <!-- Emergency SOS Banner -->
+        <a class="sos-banner" href="tel:112" title="Call Emergency Helpline 112">
+          <div class="sos-icon-pulse">
+            <span class="sos-emoji">🚨</span>
+            <span class="sos-pulse-ring"></span>
+          </div>
+          <div class="sos-text-content">
+            <span class="sos-main-text" id="sosButtonText">EMERGENCY 112</span>
+            <span class="sos-sub-text">National Helpline • Police, Ambulance &amp; Fire (24/7)</span>
+          </div>
+          <span class="sos-call-action">📞 Call Now</span>
         </a>
 
         <!-- Live Search Bar -->
-        <div class="search-wrapper">
-          <span class="search-icon-left">🔍</span>
-          <input 
-            type="search" 
-            id="mainSearchInput" 
-            class="main-search-input" 
-            placeholder="Search hospitals, food, chowks, metro, hotels..." 
-            autocomplete="off"
-            spellcheck="false"
-          >
-          <button type="button" id="searchClearBtn" class="search-clear-btn" style="display: none;" title="Clear">✕</button>
+        <div class="search-container">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="search" 
+              id="mainSearchInput" 
+              class="search-input" 
+              placeholder="Search hospitals, food, chowks, metro, hotels..." 
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button type="button" id="searchClearBtn" class="search-clear-btn" style="display: none;" title="Clear search">✕</button>
+          </div>
         </div>
 
         <!-- Quick Access Chips -->
-        <div class="quick-chips-scroll" id="quickChipsContainer"></div>
+        <div class="quick-chips-wrapper">
+          <div class="quick-chips-scroll" id="quickChipsContainer"></div>
+        </div>
       </section>
 
       <!-- Home View (Categories) -->
       <section id="homeView">
-        <h2 class="section-heading" id="categoriesHeading">Explore Categories</h2>
+        <div class="section-header-row">
+          <h2 class="section-heading" id="categoriesHeading">Explore Neighborhood Categories</h2>
+          <span class="section-subheading">Select a category to view verified places and live maps</span>
+        </div>
         <div class="categories-grid" id="categoriesGrid"></div>
       </section>
 
@@ -87,12 +94,12 @@
       <section id="detailView" class="detail-view">
         <div class="detail-nav-bar">
           <button type="button" class="btn-back-home" id="backToHomeBtn">
-            <span>←</span> Back to Categories
+            <span class="back-arrow">&larr;</span> Back to Categories
           </button>
-          <h2 class="detail-header-title">
-            <span id="detailCategoryIcon"></span>
-            <span id="detailCategoryTitle"></span>
-          </h2>
+          <div class="detail-header-group">
+            <span id="detailCategoryIcon" class="detail-cat-icon"></span>
+            <h2 id="detailCategoryTitle" class="detail-cat-title"></h2>
+          </div>
         </div>
 
         <div class="places-list-container" id="placesListContainer"></div>
@@ -101,109 +108,23 @@
 
     <!-- Footer -->
     <footer class="app-footer">
-      <p id="footerMadeBy">Scannerverse • Smart Local Directory &amp; Scanner</p>
-      <p style="margin-top: 4px;">
-        Suggestions or updates? 
-        <a class="footer-email-link" href="mailto:anurag.aparaitech@gmail.com?subject=Scannerverse%20Update%20Request">Contact Anurag</a>
-      </p>
-      <p class="footer-emergency-note" id="footerEmergencyNote">
-        In an immediate police, fire, or medical emergency, call 112 directly.
-      </p>
+      <div class="footer-card">
+        <p class="footer-brand" id="footerMadeBy">Scannerverse • Smart Local Directory for Wakad &amp; Hinjewadi</p>
+        <p class="footer-links">
+          <span>Need to add or update a place?</span>
+          <a class="footer-email-link" href="mailto:anurag.aparaitech@gmail.com?subject=Scannerverse%20Place%20Update">
+            ✉️ Contact Anurag
+          </a>
+        </p>
+        <p class="footer-emergency-note" id="footerEmergencyNote">
+          In an immediate medical, fire, or police emergency in Maharashtra, dial 112 directly.
+        </p>
+      </div>
     </footer>
   </div>
 
-  <!-- QR Scanner Modal -->
-  <div class="modal-backdrop" id="scannerModal">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title">QR Code Scanner</h3>
-        <button type="button" class="modal-close-btn" id="closeScannerModalBtn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-tabs">
-          <button type="button" class="modal-tab-btn active" id="tabScanCamera">Live Camera</button>
-          <button type="button" class="modal-tab-btn" id="tabScanFile">Upload Image</button>
-        </div>
-
-        <!-- Live Camera View -->
-        <div id="scannerCameraBody">
-          <div class="video-viewport">
-            <video id="scannerVideo" muted></video>
-            <canvas id="scannerOverlay"></canvas>
-            <div id="cameraStatus" class="camera-status-msg" style="display: none;">
-              Requesting camera permission...
-            </div>
-          </div>
-          <div style="display: flex; gap: 8px;">
-            <button type="button" class="btn-primary" id="startCameraBtn" style="flex: 1;">Start Camera</button>
-            <button type="button" class="btn-action btn-map" id="stopCameraBtn" style="flex: 1; display: none;">Stop Camera</button>
-          </div>
-        </div>
-
-        <!-- Image Upload View -->
-        <div id="scannerFileBody" style="display: none;">
-          <input type="file" id="qrFileInput" accept="image/*" style="display: none;">
-          <div class="qr-drop-zone" id="qrDropZone">
-            <div class="drop-zone-icon">🖼️</div>
-            <p class="drop-zone-text">Click or drag a QR code image here</p>
-            <span style="font-size: 0.78rem; color: var(--text-light);">(PNG, JPG, WebP)</span>
-          </div>
-        </div>
-
-        <!-- Decoded Result Container -->
-        <div class="scan-result-container" id="scanResultContainer">
-          <div class="scan-result-title">Decoded QR Content</div>
-          <p class="scan-result-text" id="scanResultText"></p>
-          <div class="scan-result-actions">
-            <a class="btn-action btn-directions" id="scanOpenLinkBtn" href="#" target="_blank" rel="noopener noreferrer" style="display: none;">
-              <span>↗️</span> Open Link
-            </a>
-            <button type="button" class="btn-action btn-map" id="scanCopyBtn">
-              <span>📋</span> Copy Text
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- QR Generator Modal -->
-  <div class="modal-backdrop" id="generatorModal">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title">QR Code Generator</h3>
-        <button type="button" class="modal-close-btn" id="closeGeneratorModalBtn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label" for="qrInputText">Enter URL, Place name, or Text:</label>
-          <input 
-            type="text" 
-            id="qrInputText" 
-            class="form-input" 
-            placeholder="e.g. https://prajwallate1999-droid.github.io/wakad-local-guide/"
-          >
-        </div>
-        <button type="button" class="btn-primary" id="generateQrSubmitBtn" style="width: 100%;">
-          Generate QR Code
-        </button>
-
-        <div class="qr-preview-box" id="generatedQrPreview">
-          <span style="color: var(--text-muted); font-size: 0.88rem;">Generated QR code will appear here</span>
-        </div>
-
-        <button type="button" class="btn-action btn-phone" id="downloadQrBtn" style="width: 100%; justify-content: center; display: none;">
-          <span>💾</span> Download QR Image
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
-  <script src="js/vendor/jsqr.js"></script>
-  <script src="js/vendor/qrcode.min.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/scanner.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
