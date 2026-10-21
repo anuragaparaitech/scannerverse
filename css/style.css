@@ -951,31 +951,83 @@ body {
 }
 
 .footer-brand {
-  font-size: 0.92rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
   color: var(--text-main);
   margin-bottom: 6px;
 }
 
-.footer-links {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  margin-bottom: 10px;
+/* Footer QR Card */
+.footer-qr-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 16px auto;
+  max-width: 440px;
+  box-shadow: var(--shadow-xs);
+  text-align: left;
 }
 
-.footer-email-link {
+.footer-qr-img-wrap {
+  background: #ffffff;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-qr-img {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
+.footer-qr-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qr-label-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.qr-label-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.btn-download-qr {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-subtle);
   color: var(--primary);
-  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
   font-weight: 700;
+  text-decoration: none;
+  width: fit-content;
+  transition: all 0.15s ease;
 }
 
-.footer-email-link:hover {
-  text-decoration: underline;
+.btn-download-qr:hover {
+  background: var(--primary);
+  color: #ffffff;
 }
 
 .footer-emergency-note {

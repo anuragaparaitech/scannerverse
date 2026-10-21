@@ -77,9 +77,9 @@ Double-click `index.html` to open directly in any modern browser.
 
 ---
 
-## 👨‍💻 Maintainer
+## 👥 Community & Contributions
 
-Created and maintained by **Anurag** ([anurag.aparaitech@gmail.com](mailto:anurag.aparaitech@gmail.com)).  
+Maintained for the **Scannerverse Community**.  
 Contributions, corrections for local places, and feedback are always welcome!
 
 ---

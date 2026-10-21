@@ -8,7 +8,6 @@ const APP_CONFIG = {
     lat: 18.5987,
     lng: 73.7615
   },
-  contactEmail: "anurag.aparaitech@gmail.com",
   version: "1.0.0",
   lastUpdated: "October 2026",
   mapsSearchBase: "https://www.google.com/maps/search/?api=1&query=",
